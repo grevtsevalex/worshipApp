@@ -1,8 +1,10 @@
 const db = require('../db');
 
 const songSchema = new db.Schema({
-  id:   String,
-  text: Array, // SongPart[]
+  title:  String,
+  tags:   Array,
+  text:   String,
+  author: String,
 });
 
 module.exports = db.model('Song', songSchema);

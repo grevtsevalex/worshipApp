@@ -1,11 +1,10 @@
 const db = require('../db');
 
 const playListSchema = new db.Schema({
-  id:           String,
-  songs:        Array,  // Song[]
+  songs:        Array,
   createDate:   String,
-  author:       Object, // User
-  participates: Array,  // User[]
+  author:       Object,
+  participates: Array,
 });
 
 module.exports = db.model('PlayList', playListSchema);
