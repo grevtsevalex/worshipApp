@@ -9,6 +9,13 @@ const Song = require('../models/Song');
 const getSongs = () => Song.find();
 
 /**
+ * Найти песню по идентификатору.
+ * @param {string} id Идентификатор песни.
+ * @returns Promise<Song>
+ */
+ const getSongById = (id) => Song.find({_id: id});
+
+/**
  * Найти песню по названию.
  * @param {string} title Название песни.
  * @returns Promise<array>
@@ -34,7 +41,7 @@ const getSongByText = (query) => Song.find({$text: {$search: query}});
  * @param {string, array} Название песни, тэги.
  * @returns Promise<boolean>
  */
- const isSongExist = ({title, tags}) => Song.find({title, tags: {$all: tags}});
+ const isSongExist = ({title, tags}) => Song.exists({title, tags: {$all: tags}});
 
 //////////   ADDING   //////////
 
@@ -46,4 +53,4 @@ const getSongByText = (query) => Song.find({$text: {$search: query}});
 const addSong = ({title, tags, text}) => new Song({title, text, tags}).save();
 
 
-module.exports = {getSongs, getSongByTitle, getSongsByTags, getSongByText, addSong, isSongExist};
+module.exports = {getSongs, getSongByTitle, getSongsByTags, getSongByText, addSong, isSongExist, getSongById};
