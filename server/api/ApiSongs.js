@@ -53,4 +53,12 @@ const getSongByText = (query) => Song.find({$text: {$search: query}});
 const addSong = ({title, tags, text}) => new Song({title, text, tags}).save();
 
 
-module.exports = {getSongs, getSongByTitle, getSongsByTags, getSongByText, addSong, isSongExist, getSongById};
+module.exports = {
+  getSongs,
+  getSongByTitle,
+  getSongsByTags,
+  getSongByText,
+  addSong,
+  isSongExist,
+  getSongById
+};
