@@ -52,6 +52,15 @@ const getSongByText = (query) => Song.find({$text: {$search: query}});
  */
 const addSong = ({title, tags, text}) => new Song({title, text, tags}).save();
 
+//////////   DELETE   //////////
+
+/**
+ * Удаление песни.
+ * @param {string} id Идентификатор песни.
+ * @returns Promise
+ */
+ const deleteSong = (id) => Song.deleteOne({_id: id});
+
 
 module.exports = {
   getSongs,
@@ -60,5 +69,6 @@ module.exports = {
   getSongByText,
   addSong,
   isSongExist,
-  getSongById
+  getSongById,
+  deleteSong
 };

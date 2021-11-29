@@ -2,6 +2,15 @@ const ApiResponse = require('../models/ApiResponse');
 const ApiSongs    = require('../api/ApiSongs');
 
 const getAllSongs = async (req, res) => {
+
+  if (req.params.id) {
+    const response = new ApiResponse();
+    response.data  = await ApiSongs.getSongById(req.params.id);
+
+    response.result = true;
+    return res.status(200).json(response);
+  }
+
   const response = new ApiResponse();
   response.data  = await ApiSongs.getSongs();
 
@@ -35,7 +44,6 @@ const createNewSong = async (req, res) => {
 
 const changeSong = async (req, res) => {
   const response = new ApiResponse();
-  console.log(req.body);
 
   if (!req.body.id) {
     response.error = 'Неверный запрос';
@@ -43,7 +51,7 @@ const changeSong = async (req, res) => {
   }
 
   const song = await ApiSongs.getSongById(req.body.id);
-  console.log(song);
+
   if (!isSongExist) {
     response.error = 'Такой песни не найдено';
     return res.status(204).json(response); 
@@ -53,10 +61,36 @@ const changeSong = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const deleteSong = async (req, res) => {
+  const response = new ApiResponse();
+
+  if (!req.params.id) {
+    response.error = 'Неверный запрос';
+    return res.status(400).json(response);
+  }
+
+  try {
+    response.result = await ApiSongs.deleteSong(req.params.id);
+  }
+  catch(e) {
+    response.result = false;
+    console.log(e);
+  }
+
+
+  if (!response.result) {
+    response.error = 'Песня не найдена';
+    return res.status(404).json(response);
+  }
+
+  return res.status(204).json(response);
+}
+
 
 module.exports = {
   getAllSongs,
   createNewSong,
   createNewSong,
   changeSong,
+  deleteSong,
 };
