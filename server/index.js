@@ -7,7 +7,7 @@ const {getAllSongs, createNewSong, changeSong, deleteSong} = require('./handlers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.route('/api/v1/songs/:id')
+app.route('/api/v1/songs/')
   .get(getAllSongs)
   .post(createNewSong)
   .put(changeSong)
