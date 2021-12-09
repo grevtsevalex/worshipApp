@@ -61,6 +61,14 @@ const addSong = ({title, tags, text}) => new Song({title, text, tags}).save();
  */
  const deleteSong = (id) => Song.deleteOne({_id: id});
 
+ //////////   UPDATE   //////////
+
+/**
+ * Обновление песни.
+ * @param {string, string, array, string} Идентификатор песни, название, тэги, текст.
+ * @returns Promise
+ */
+const updateSong = ({id, title, tags, text}) => Song.updateOne({_id: id}, {title, tags, text});
 
 module.exports = {
   getSongs,
@@ -70,5 +78,6 @@ module.exports = {
   addSong,
   isSongExist,
   getSongById,
-  deleteSong
+  deleteSong,
+  updateSong
 };

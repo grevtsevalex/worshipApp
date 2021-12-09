@@ -74,19 +74,20 @@ const createNewSong = async (req, res) => {
 const changeSong = async (req, res) => {
   const response = new ApiResponse();
 
-  if (!req.body.id) {
+  if (!req.query.id || !req.body.title || !req.body.tags || !req.body.text) {
     response.error = 'Неверный запрос';
     return res.status(400).json(response);
   }
 
-  const song = await ApiSongs.getSongById(req.body.id);
-
-  if (!isSongExist) {
-    response.error = 'Такой песни не найдено';
-    return res.status(204).json(response); 
+  try {
+    await ApiSongs.updateSong(Object.assign({id: req.query.id}, {...req.body}));
+  }
+  catch(e) {
+    response.error = e.message;
+    return res.status(400).json(response);
   }
 
-  response.result = await ApiSongs.addSong(req.body);
+  response.result = true;
   return res.status(201).json(response);
 };
 
