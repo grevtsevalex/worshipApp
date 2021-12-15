@@ -1,7 +1,6 @@
 const db = require('../db');
 
 const userSchema = new db.Schema({
-  id:    String,
   login: String,
   pass:  String,
 });
