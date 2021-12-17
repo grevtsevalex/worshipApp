@@ -3,7 +3,8 @@ const app     = express();
 const HOST    = '127.0.0.1';
 const PORT    = 3000;
 const {getAllSongs, createNewSong, changeSong, deleteSong} = require('./handlers/songHandlers');
-const {createUser} = require('./handlers/userHandlers');
+const {createUser, deleteUser, updateUser} = require('./handlers/userHandlers');
+const {checkLoginAndPassword} = require('./middlewares/userMiddlewares');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +16,9 @@ app.route('/api/v1/songs/')
   .delete(deleteSong);
 
 app.route('/api/v1/users/')
-  .post(createUser);
-  // .put();
+  .post(checkLoginAndPassword,createUser)
+  .delete(deleteUser)
+  .put(checkLoginAndPassword, updateUser);
 
 // app.route('/api/v1/user/login').post();
 // app.route('/api/v1/user/logout').post();

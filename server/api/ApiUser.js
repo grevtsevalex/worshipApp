@@ -2,17 +2,27 @@ const User = require('../models/User');
 
 /**
  * Создание нового пользователя.
- * @param {string, string} Логин, пароль.
+ * @param {string} login Логин.
+ * @param {string} pass  Пароль.
  * @returns Promise<obj>
  */
-const createUser = ({login, pass}) => new User({login, pass}).save();
+const createUser = (login, pass) => new User({login, pass}).save();
+
+ /**
+  * Изменить пользователя.
+  * @param {string} id    Идентификатор пользователя.
+  * @param {string} login Логин.
+  * @param {string} pass  Пароль.
+  * @returns Promise<boolean>
+  */
+  const updateUser = (id, login, pass) => User.updateOne({_id: id}, {login, pass});
 
 /**
- * Изменение пользователя.
- * @param {string, string} Идентификатор, логин, пароль.
+ * Удаление пользователя.
+ * @param {string} id Идентификатор пользователя. 
  * @returns Promise<boolean>
  */
-const updateUser = ({id, login, pass}) => User.updateOne({_id: id}, {login, pass});
+const deleteUser = (id) => User.deleteOne({_id: id});
 
 /**
  * Существует ли пользователь с таким логином.
@@ -22,4 +32,4 @@ const updateUser = ({id, login, pass}) => User.updateOne({_id: id}, {login, pass
  const isLoginExists = (login) => User.exists({login});
 
 
-module.exports = {createUser, updateUser, isLoginExists};
+module.exports = {createUser, updateUser, isLoginExists, deleteUser};
