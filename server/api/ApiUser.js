@@ -15,7 +15,7 @@ const createUser = (login, pass) => new User({login, pass}).save();
   * @param {string} pass  Пароль.
   * @returns Promise<boolean>
   */
-  const updateUser = (id, login, pass) => User.updateOne({_id: id}, {login, pass});
+const updateUser = (id, login, pass) => User.updateOne({_id: id}, {login, pass});
 
 /**
  * Удаление пользователя.
@@ -29,7 +29,14 @@ const deleteUser = (id) => User.deleteOne({_id: id});
  * @param string Логин.
  * @returns Promise<boolean>
  */
- const isLoginExists = (login) => User.exists({login});
+const isLoginExists = (login) => User.exists({login});
+
+/**
+ * Найти пользователя по логину.
+ * @param {string} login 
+ * @returns Promise<User>
+ */
+const findUserByLogin = (login) => User.find({login});
 
 
-module.exports = {createUser, updateUser, isLoginExists, deleteUser};
+module.exports = {createUser, updateUser, isLoginExists, deleteUser, findUserByLogin};

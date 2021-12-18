@@ -94,12 +94,7 @@ const changeSong = async (req, res) => {
 /** Delete song. */
 const deleteSong = async (req, res) => {
   const response = new ApiResponse();
-
-  if (!req.query.id) {
-    response.error = 'Неверный запрос';
-    return res.status(400).json(response);
-  }
-
+  
   try {
     response.result = await ApiSongs.deleteSong(req.query.id);
   }
