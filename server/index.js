@@ -4,8 +4,9 @@ const HOST    = '127.0.0.1';
 const PORT    = 3000;
 const {getAllSongs, createNewSong, changeSong, deleteSong} = require('./handlers/songHandlers');
 const {createUser, deleteUser, updateUser}                 = require('./handlers/userHandlers');
+const {login}                                              = require('./handlers/authHandlers');
 const {checkLoginAndPassword}                              = require('./middlewares/userMiddlewares');
-const {checkId}                                            = require('./middlewares/commonMiddlewares');
+const {checkId, authenticate}                              = require('./middlewares/commonMiddlewares');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -19,10 +20,11 @@ app.route('/api/v1/songs/')
 app.route('/api/v1/users/')
   .post(checkLoginAndPassword, createUser)
   .delete(deleteUser, checkId)
-  .put(checkLoginAndPassword, updateUser);
+  .put(checkLoginAndPassword, authenticate, updateUser);
 
-// app.route('/api/v1/user/login').post();
-// app.route('/api/v1/user/logout').post();
+app.route('/api/v1/users/login')
+  .post(login);
+// app.route('/api/v1/users/logout').post();
 
 
 

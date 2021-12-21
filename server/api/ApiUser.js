@@ -36,7 +36,7 @@ const isLoginExists = (login) => User.exists({login});
  * @param {string} login 
  * @returns Promise<User>
  */
-const findUserByLogin = (login) => User.find({login});
+const findUserByLogin = (login) => User.findOne({login});
 
 
 module.exports = {createUser, updateUser, isLoginExists, deleteUser, findUserByLogin};

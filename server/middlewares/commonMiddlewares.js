@@ -1,4 +1,6 @@
 const ApiResponse = require('../models/ApiResponse');
+const JWT = require('jsonwebtoken');
+const {jwtKey} = require('../config');
 
 const checkId = (req, res, next) => {
   const response = new ApiResponse();
@@ -19,10 +21,11 @@ const authenticate = (req, res, next) => {
   }
   
   const token = authorization.split(' ')[1];
+  console.log(token);
 
   JWT.verify(token, jwtKey, (err, decoded) => {
     if (err) {
-      response.error = 'Authentication error';
+      response.error = err;
       return res.status(401).json(response);
     }
     console.log(decoded);
