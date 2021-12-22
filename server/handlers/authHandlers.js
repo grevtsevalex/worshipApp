@@ -1,24 +1,37 @@
-const ApiResponse     = require('../models/ApiResponse');
-const {generateToken} = require('../auth');
+const ApiResponse       = require('../models/ApiResponse');
+const JWT               = require('jsonwebtoken');
+const bcrypt            = require('bcrypt');
+const {jwtKey}          = require('../config');
+const {findUserByLogin} = require('../api/ApiUser');
 
 const login = async (req, res) => {
   const response = new ApiResponse();
+  const {login, pass} = req.body;
 
-  if (!req.body.login || !req.body.pass) {
+  if (!login || !pass) {
     response.error = 'Неверные параметры';
     return res.status(400).json(response);
   }
 
-  const token = await generateToken(req.body.login, req.body.pass);
-  console.log(token);
+  const user = await findUserByLogin(login)
+  .catch(e => {console.log(e); return;});
 
-  if (!token) {
-    response.error = 'Authentication error. Can\'t generate token';
-    return res.status(400).json(response);
+  const result = await bcrypt.compare(pass, user.pass)
+  .catch(e => {console.log(e); return;});
+
+  if (!result) {
+    console.log('Authentication failed');
+    return;
   }
 
-  response.data = token;
-  return res.status(200).json(response);
+  JWT.sign({userId: user._id, login}, jwtKey, {expiresIn: '1h'}, (err, token) => {
+    if (err) {
+      response.error = err;
+      return res.status(400).json(response);
+    }
+    response.data = token;
+    return res.status(200).json(response);
+  });
 };
 
 module.exports = {login};

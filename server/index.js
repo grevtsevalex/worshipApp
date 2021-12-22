@@ -5,6 +5,7 @@ const PORT    = 3000;
 const {getAllSongs, createNewSong, changeSong, deleteSong} = require('./handlers/songHandlers');
 const {createUser, deleteUser, updateUser}                 = require('./handlers/userHandlers');
 const {login}                                              = require('./handlers/authHandlers');
+const {createPlayList}                                     = require('./handlers/playListHandlers');
 const {checkLoginAndPassword}                              = require('./middlewares/userMiddlewares');
 const {checkId, authenticate}                              = require('./middlewares/commonMiddlewares');
 
@@ -13,21 +14,21 @@ app.use(express.urlencoded({extended: true}));
 
 app.route('/api/v1/songs/')
   .get(getAllSongs)
-  .post(createNewSong)
-  .put(changeSong)
-  .delete(deleteSong, checkId);
+  .post(createNewSong, authenticate)
+  .put(changeSong, authenticate)
+  .delete(deleteSong, authenticate, checkId);
 
 app.route('/api/v1/users/')
   .post(checkLoginAndPassword, createUser)
-  .delete(deleteUser, checkId)
+  .delete(deleteUser, authenticate, checkId)
   .put(checkLoginAndPassword, authenticate, updateUser);
 
 app.route('/api/v1/users/login')
   .post(login);
-// app.route('/api/v1/users/logout').post();
 
-
-
+app.route('/api/v1/playlist/')
+  .post(createPlayList);
+  
 
 app.listen(PORT, HOST, () => {
   console.log('Server listen on port: '  + PORT);
