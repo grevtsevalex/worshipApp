@@ -44,17 +44,17 @@ const createNewSong = async (req, res) => {
     return res.status(400).json(response);
   }
 
-  let isSongExist = true;
+  let hasCommonSong = true;
 
   try {
-    isSongExist = await ApiSongs.isSongExist(req.body);
+    hasCommonSong = await ApiSongs.hasCommonSong(req.body);
   }
   catch(e) {
     response.error = e.message;
     return res.status(400).json(response);
   }
 
-  if (isSongExist) {
+  if (hasCommonSong) {
     response.error = 'Песня с таким названием и тэгами уже существует';
     return res.status(409).json(response);
   }

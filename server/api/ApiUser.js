@@ -8,13 +8,13 @@ const User = require('../models/User');
  */
 const createUser = (login, pass) => new User({login, pass}).save();
 
- /**
-  * Изменить пользователя.
-  * @param {string} id    Идентификатор пользователя.
-  * @param {string} login Логин.
-  * @param {string} pass  Пароль.
-  * @returns Promise<boolean>
-  */
+/**
+ * Изменить пользователя.
+ * @param {string} id    Идентификатор пользователя.
+ * @param {string} login Логин.
+ * @param {string} pass  Пароль.
+ * @returns Promise<boolean>
+ */
 const updateUser = (id, login, pass) => User.updateOne({_id: id}, {login, pass});
 
 /**

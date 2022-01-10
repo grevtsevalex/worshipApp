@@ -37,11 +37,18 @@ const getSongsByTags = (tags) => Song.find({tags: {$all: tags}});
 const getSongByText = (query) => Song.find({$text: {$search: query}});
 
 /**
- * Существует ли такая песня.
+ * Есть ли уже песня с таким содержанием и тегами.
  * @param {string, array} Название песни, тэги.
  * @returns Promise<boolean>
  */
- const isSongExist = ({title, tags}) => Song.exists({title, tags: {$all: tags}});
+ const hasCommonSong = ({title, tags}) => Song.exists({title, tags: {$all: tags}});
+
+/**
+ * Существует ли такая песня.
+ * @param {string} id 
+ * @returns Promise<boolean>
+ */
+const isSongExists = (id) => Song.exists({_id: id});
 
 //////////   ADDING   //////////
 
@@ -76,8 +83,9 @@ module.exports = {
   getSongsByTags,
   getSongByText,
   addSong,
-  isSongExist,
+  hasCommonSong,
   getSongById,
   deleteSong,
-  updateSong
+  updateSong,
+  isSongExists,
 };
