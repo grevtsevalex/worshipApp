@@ -14,6 +14,7 @@ const checkId = (req, res, next) => {
 const authenticate = (req, res, next) => {
   const response = new ApiResponse();
   const {authorization} = req.headers;
+  console.log(authorization);
 
   if (!authorization) {
     response.error = 'Authentication error';

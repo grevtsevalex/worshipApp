@@ -1,10 +1,10 @@
-const db = require('../db');
+const {Schema, model} = require('../db');
 
-const playListSchema = new db.Schema({
-  songs:        Array,
+const playListSchema = new Schema({
+  songs:        [{ type: Schema.Types.ObjectId, ref: 'Song'}],
   author:       String,
-  participates: Array,
+  participates: [{ type: Schema.Types.ObjectId, ref: 'User'}],
   createDate:   Date,
 });
 
-module.exports = db.model('PlayList', playListSchema);
+module.exports = model('PlayList', playListSchema);

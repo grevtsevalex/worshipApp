@@ -1,10 +1,10 @@
-const db = require('../db');
+const {Schema, model} = require('../db');
 
-const songSchema = new db.Schema({
+const songSchema = new Schema({
   title:  String,
   tags:   Array,
   text:   String,
   author: String,
 });
 
-module.exports = db.model('Song', songSchema);
+module.exports = model('Song', songSchema);

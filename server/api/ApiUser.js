@@ -32,6 +32,13 @@ const deleteUser = (id) => User.deleteOne({_id: id});
 const isLoginExists = (login) => User.exists({login});
 
 /**
+ * Существует ли пользователь.
+ * @param string Идентификатор.
+ * @returns Promise<boolean>
+ */
+ const isUserExists = (id) => User.exists({_id: id});
+
+/**
  * Найти пользователя по логину.
  * @param {string} login 
  * @returns Promise<User>
@@ -39,4 +46,4 @@ const isLoginExists = (login) => User.exists({login});
 const findUserByLogin = (login) => User.findOne({login});
 
 
-module.exports = {createUser, updateUser, isLoginExists, deleteUser, findUserByLogin};
+module.exports = {createUser, updateUser, isLoginExists, deleteUser, findUserByLogin, isUserExists};
