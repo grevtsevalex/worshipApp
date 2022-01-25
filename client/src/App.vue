@@ -3,6 +3,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div>
+  <Menu></Menu>
   <router-view />
 </template>
 
@@ -13,6 +14,7 @@ export default {
   component: {
     Menu,
   },
+  components: { Menu },
 };
 </script>
 
