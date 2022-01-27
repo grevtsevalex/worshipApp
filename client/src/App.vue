@@ -1,9 +1,5 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <Menu></Menu>
+  <Menu class="menu"></Menu>
   <router-view />
 </template>
 
@@ -25,5 +21,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.menu {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 </style>

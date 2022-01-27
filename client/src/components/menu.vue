@@ -4,7 +4,10 @@
       <MenuButton
         :title="button.title"
         :icon="button.icon"
+        :url="button.href"
+        :id="button.id"
         :class="{ selected: button.isSelected }"
+        @buttonSelected="selectHandler"
       />
     </div>
   </div>
@@ -18,7 +21,7 @@ export default {
   },
   data: function () {
     return {
-      selectedItemId: "2",
+      selectedItemId: "0",
     };
   },
   computed: {
@@ -30,7 +33,7 @@ export default {
       return [
         {
           id: "0",
-          href: "/home",
+          href: "/",
           title: "Все песни",
           isSelected: false,
           icon: [
@@ -40,7 +43,7 @@ export default {
         },
         {
           id: "1",
-          href: "/home",
+          href: "/playlist",
           title: "Плейлист",
           isSelected: false,
           icon: [
@@ -50,7 +53,7 @@ export default {
         },
         {
           id: "2",
-          href: "/home",
+          href: "/search",
           title: "Найти",
           isSelected: false,
           icon: [
@@ -60,7 +63,7 @@ export default {
         },
         {
           id: "3",
-          href: "/home",
+          href: "/more",
           title: "Еще",
           isSelected: false,
           icon: [
@@ -73,6 +76,15 @@ export default {
           ? { ...item, icon: item.icon[0], isSelected: true }
           : { ...item, icon: item.icon[1] }
       );
+    },
+  },
+  methods: {
+    /**
+     * Handler on select menu button.
+     * @param {string} id
+     */
+    selectHandler(id) {
+      this.selectedItemId = id;
     },
   },
 };
