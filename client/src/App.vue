@@ -1,6 +1,8 @@
 <template>
-  <Menu class="menu"></Menu>
-  <router-view />
+  <div class="page" data-role="page">
+    <router-view />
+  </div>
+  <Menu class="menu" data-role="menu"></Menu>
 </template>
 
 <script>
@@ -11,6 +13,18 @@ export default {
     Menu,
   },
   components: { Menu },
+  mounted() {
+    document.querySelector('[data-role="page"]').style.height =
+      this.pageHeight + "px";
+  },
+  computed: {
+    pageHeight() {
+      const menuHeight =
+        document.querySelector('[data-role="menu"]').clientHeight;
+
+      return window.innerHeight - menuHeight;
+    },
+  },
 };
 </script>
 
@@ -21,6 +35,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+body {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+.page {
+  overflow: overlay;
 }
 .menu {
   position: fixed;

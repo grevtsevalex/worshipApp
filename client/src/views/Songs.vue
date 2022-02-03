@@ -2,11 +2,11 @@
   <h1>This is an songs page</h1>
   <div class="songs" v-for="song in songs" :key="song._id">
     <song
-    :id="song._id"
-    :text="song.text"
-    :title="song.title"
-    :tags="song.tags"
-    :author="song.author"
+      :id="song._id"
+      :text="song.text"
+      :title="song.title"
+      :tags="song.tags"
+      :author="song.author"
     ></song>
   </div>
 </template>
@@ -30,3 +30,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.songs {
+  display: flex;
+  justify-content: center;
+}
+</style>
