@@ -43,6 +43,8 @@ export default {
 <style>
 .song-component__head {
   cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
 }
 .song-component__title {
   font-weight: bold;

@@ -36,10 +36,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+* {box-sizing: border-box;}
 body {
   overflow: hidden;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 .page {
   overflow: overlay;

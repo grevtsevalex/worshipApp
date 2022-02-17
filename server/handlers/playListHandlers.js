@@ -1,5 +1,7 @@
 const ApiResponse    = require('../models/ApiResponse');
 const ApiPlayList    = require('../api/ApiPlayList');
+const {isUserExists} = require('../api/ApiUser');
+const {isSongExists} = require('../api/ApiSongs');
 
 const createPlayList = async (req, res) => {
   const response = new ApiResponse();
