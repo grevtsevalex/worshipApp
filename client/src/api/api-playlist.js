@@ -24,7 +24,7 @@ const addSongs = (ids, playlistId) => {
   .catch(e => console.log(e))
 };
 
-const deleteSong = (ids, playlistId) => {
+const deleteSongs = (ids, playlistId) => {
   const body = {
     songs: ids,
     playlistId: playlistId || config.adminPlaylistId
@@ -42,4 +42,4 @@ const deleteSong = (ids, playlistId) => {
   .catch(e => console.log(e))
 };
 
-export { getAllPlaylists, addSongs, deleteSong };
+export { getAllPlaylists, addSongs, deleteSongs };

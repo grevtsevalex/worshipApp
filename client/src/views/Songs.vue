@@ -13,11 +13,11 @@
       ></song>
     </div>
   </div>
-  <context-buttons v-if="isSelectMode" class="songs-context-buttons" @cancel="isSelectMode=false"></context-buttons>
+  <context-buttons v-if="isSelectMode" :songsIds="selectedSongs" class="songs-context-buttons" @cancel="isSelectMode=false"></context-buttons>
 </template>
 
 <script>
-import { getAllSongs } from "../api/api-songs.js";
+import { getAllSongs} from "../api/api-songs.js";
 import Song from "@/components/song.vue";
 import ContextButtons from "@/components/context-buttons.vue";
 
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       songs: [],
+      selectedSongs: [],
       isSelectMode: false,
     };
   },
@@ -38,7 +39,9 @@ export default {
   },
   methods: {
     selectSongHandler({target}) {
-      console.log(target.value);
+      if (target.checked) this.selectedSongs.push(target.value);
+      else this.selectedSongs = this.selectedSongs.filter(id => id !== target.value);
+      console.log(this.selectedSongs);
     },
   },
 };

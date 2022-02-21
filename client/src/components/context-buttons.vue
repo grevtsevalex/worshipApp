@@ -1,17 +1,28 @@
 <template>
   <div class="context-buttons">
-    <div class="context-button">Добавить в плейлист</div>
-    <div class="context-button">Удалить</div>
+    <div class="context-button" @click="addToPlaylist">Добавить в плейлист</div>
+    <div class="context-button" @click="deleteSongs">Удалить</div>
     <div class="context-button" @click="cancelHandler">Отмена</div>
   </div>
 </template>
 
 <script>
+import { addSongs, deleteSongs } from "../api/api-playlist.js";
 export default {
   name: 'ContextButtons',
+  props: {
+    songsIds: {type: Array, require: true},
+  },
   methods: {
     cancelHandler() {
       this.$emit('cancel');
+    },
+    deleteSongs() {
+      deleteSongs(this.songsIds);
+    },
+    addToPlaylist() {
+      console.log(this.songsIds);
+      addSongs(this.songsIds);
     },
   },
 }
